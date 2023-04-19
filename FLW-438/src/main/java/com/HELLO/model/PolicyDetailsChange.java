@@ -1,22 +1,31 @@
+package com.HELLO.model;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "policy_details_change")
 public class PolicyDetailsChange {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String serviceNo;
-    private String assignedToApprover;
-    private String status;
-    private String decision;
-    private boolean editable;
-    private String makerComments;
-    private String approverComments;
+    @Column(name = "maker")
+    private String maker;
+
+    @Column(name = "assigned")
+    private boolean assigned;
+
+    @Column(name = "status")
+    private int status;
+
+    @Column(name = "approver_notes")
+    private String approverNotes;
 
     public long getId() {
         return id;
@@ -26,60 +35,36 @@ public class PolicyDetailsChange {
         this.id = id;
     }
 
-    public String getServiceNo() {
-        return serviceNo;
+    public String getMaker() {
+        return maker;
     }
 
-    public void setServiceNo(String serviceNo) {
-        this.serviceNo = serviceNo;
+    public void setMaker(String maker) {
+        this.maker = maker;
     }
 
-    public String getAssignedToApprover() {
-        return assignedToApprover;
+    public boolean isAssigned() {
+        return assigned;
     }
 
-    public void setAssignedToApprover(String assignedToApprover) {
-        this.assignedToApprover = assignedToApprover;
+    public void setAssigned(boolean assigned) {
+        this.assigned = assigned;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public String getDecision() {
-        return decision;
+    public String getApproverNotes() {
+        return approverNotes;
     }
 
-    public void setDecision(String decision) {
-        this.decision = decision;
-    }
-
-    public boolean isEditable() {
-        return editable;
-    }
-
-    public void setEditable(boolean editable) {
-        this.editable = editable;
-    }
-
-    public String getMakerComments() {
-        return makerComments;
-    }
-
-    public void setMakerComments(String makerComments) {
-        this.makerComments = makerComments;
-    }
-
-    public String getApproverComments() {
-        return approverComments;
-    }
-
-    public void setApproverComments(String approverComments) {
-        this.approverComments = approverComments;
+    public void setApproverNotes(String approverNotes) {
+        this.approverNotes = approverNotes;
     }
 
 }

@@ -1,14 +1,15 @@
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PolicyDetailsChangeRepository extends JpaRepository<PolicyDetailsChange, Long> {
- 
-    List<PolicyDetailsChange> findAllByAssignedToApproverAndStatus(String approver, String status);
-    List<PolicyDetailsChange> findAllByAssignedToApproverAndStatusAndEditable(String approver, String status, boolean editable);
-    PolicyDetailsChange findByServiceNoAndEditable(String serviceNo, boolean editable);
-    PolicyDetailsChange findByServiceNoAndAssignedToApprover(String serviceNo, String assignedToApprover);
-    List<PolicyDetailsChange> findAllByAssignedToApproverAndStatusAndDecisionAndEditable(String approver, String status, String decision, boolean editable);
-    List<PolicyDetailsChange> findAllByMakerCommentsNotNullAndAssignedToApproverAndStatus(String approver, String status);
-    List<PolicyDetailsChange> findAllByApproverCommentsNotNullAndAssignedToApproverAndStatus(String approver, String status);
-}
+    
+    @Query("SELECT pdc FROM PolicyDetailsChange pdc WHERE pdc.assigned = true")
+    List<PolicyDetailsChange> findPolicyDetailsChangeForApprover();
 
-package com.HELLO.repository;
+    @Query("SELECT pdc FROM PolicyDetailsChange pdc WHERE pdc.maker = :maker")
+    List<PolicyDetailsChange> findPolicyDetailsChangeByMaker(String maker);
+
+    @Modifying
+    @Query("UPDATE PolicyDetailsChange SET status = :status, approver_notes = :approverNotes WHERE id = :id")
+    int updateStatusAndNotes(long id, int status, String approverNotes);
+
+}
